@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/dvincente/chainecho-api#readme",
   "devDependencies": {
+    "@types/jest": "^29.5.14",
     "@types/node": "^22.14.0",
     "typescript": "^5.8.3"
   },
