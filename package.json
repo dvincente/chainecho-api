@@ -1,8 +1,9 @@
 {
   "name": "chainecho-api",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Node.js API Client for https://chainecho.me",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc"
   },
@@ -31,5 +32,6 @@
   "dependencies": {
     "axios": "^1.8.4",
     "esm-serialize": "^0.3.1"
-  }
+  },
+  "files": ["dist/**/*"]
 }
