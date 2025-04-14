@@ -1,6 +1,6 @@
 {
   "name": "chainecho-api",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "Node.js API Client for https://chainecho.me",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

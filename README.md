@@ -18,5 +18,8 @@ const CHAINECHO_API_KEY = 'xxxxxxxxxxxxxxxxxx';
 client.setToken(CHAINECHO_API_KEY);
 
 const news: News[] = await client.getLatestNews(20);
-console.log(news.length);
+console.log(news);
+
+const categories = await client.getCategory();
+console.log(categories);
 ```

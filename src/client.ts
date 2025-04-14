@@ -1,6 +1,7 @@
 
 import parser from 'esm-serialize';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
+import https from 'https';
 
 export interface News {
     id: number;
@@ -32,24 +33,65 @@ export class Client {
     }
 
     public async getLatestNews(limit: number = 10): Promise<News[]> {
-
-        const resp = await axios.post('https://chainecho.me/api/v2/article', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                token: this.API_KEY,
-                limit: limit,
-            })
+        const axiosIns = axios.create({
+            httpsAgent: new https.Agent({ rejectUnauthorized: false })
         });
-        
-        if (resp.status === 200) {
-            const ret: ResponseFormat = parser.unserialize(resp.data);
-            if (ret.success)
-                return ret.data;
-            else
-                console.error(ret.error);
+
+        try {
+            const resp: AxiosResponse = await axiosIns.post('https://chainecho.me/api/v2/article', 
+                {
+                    token: this.API_KEY,
+                    limit: limit,
+                }, 
+                {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            
+            if (resp.status === 200) {
+                const ret: ResponseFormat = parser.unserialize(resp.data);
+                if (ret.success)
+                    return ret.data;
+                else
+                    console.error(ret.error);
+            }
+        }
+        catch (e) {
+            console.log(e);
+        }
+
+        return [];
+    }
+
+    public async getCategories() {
+        const axiosIns = axios.create({
+            httpsAgent: new https.Agent({ rejectUnauthorized: false })
+        });
+
+        try {
+            const resp: AxiosResponse = await axiosIns.post('https://chainecho.me/api/v2/category', 
+                {
+                    token: this.API_KEY
+                }, 
+                {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            
+            if (resp.status === 200) {
+                const ret: ResponseFormat = parser.unserialize(resp.data);
+                if (ret.success)
+                    return ret.data;
+                else
+                    console.error(ret.error);
+            }
+        }
+        catch (e) {
+            console.log(e);
         }
 
         return [];
