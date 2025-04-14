@@ -33,12 +33,8 @@ export class Client {
     }
 
     public async getLatestNews(limit: number = 10): Promise<News[]> {
-        const axiosIns = axios.create({
-            httpsAgent: new https.Agent({ rejectUnauthorized: false })
-        });
-
         try {
-            const resp: AxiosResponse = await axiosIns.post('https://chainecho.me/api/v2/article', 
+            const resp: AxiosResponse = await axios.post('https://chainecho.me/api/v2/article', 
                 {
                     token: this.API_KEY,
                     limit: limit,
